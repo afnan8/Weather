@@ -13,6 +13,7 @@
 		44D3FC5727E285B700FBD92E /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D3FC5527E285B700FBD92E /* SFProText-Bold.ttf */; };
 		44D3FC5827E285B700FBD92E /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D3FC5627E285B700FBD92E /* SFProText-Regular.ttf */; };
 		44D3FC5B27E2872800FBD92E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC5A27E2872800FBD92E /* UIColor+Extension.swift */; };
+		44D3FC6527E29B7200FBD92E /* ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC6427E29B7200FBD92E /* ActivityIndicator.m */; };
 		5F3D6BB12899C009111521CE /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0930639E26B805375235E3 /* Pods_Weather.framework */; };
 		A05C448027E2615400D437FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C447F27E2615400D437FA /* AppDelegate.swift */; };
 		A05C448227E2615400D437FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C448127E2615400D437FA /* SceneDelegate.swift */; };
@@ -56,6 +57,8 @@
 		44D3FC5627E285B700FBD92E /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		44D3FC5A27E2872800FBD92E /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		44D3FC5D27E289F900FBD92E /* Weather-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Weather-Bridging-Header.h"; sourceTree = "<group>"; };
+		44D3FC6327E29B7200FBD92E /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
+		44D3FC6427E29B7200FBD92E /* ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicator.m; sourceTree = "<group>"; };
 		5F5C71DD3F51E2A985D06EB7 /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
 		A05C447C27E2615400D437FA /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05C447F27E2615400D437FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +158,7 @@
 		44D3FC4F27E281E400FBD92E /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				44D3FC6227E29B7200FBD92E /* ActivityIndicator */,
 				44D3FC5927E2871400FBD92E /* Extensions */,
 			);
 			path = Helpers;
@@ -176,6 +180,15 @@
 				44D3FC5A27E2872800FBD92E /* UIColor+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		44D3FC6227E29B7200FBD92E /* ActivityIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				44D3FC6327E29B7200FBD92E /* ActivityIndicator.h */,
+				44D3FC6427E29B7200FBD92E /* ActivityIndicator.m */,
+			);
+			path = ActivityIndicator;
 			sourceTree = "<group>";
 		};
 		A05C447327E2615400D437FA = {
@@ -412,6 +425,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44D3FC6527E29B7200FBD92E /* ActivityIndicator.m in Sources */,
 				44D3FC5327E282A700FBD92E /* UIFont+Extension.swift in Sources */,
 				A05C448A27E2615400D437FA /* Weather.xcdatamodeld in Sources */,
 				A05C448027E2615400D437FA /* AppDelegate.swift in Sources */,
