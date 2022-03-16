@@ -8,6 +8,8 @@ target 'Weather' do
   # Pods for Weather
   pod 'AFNetworking', '~> 4.0'
   pod 'SVProgressHUD'
+  pod 'SnapKit', '~> 5.0.0'
+
   
   target 'WeatherTests' do
     inherit! :search_paths
