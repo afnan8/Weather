@@ -6,15 +6,15 @@
 //
 
 import UIKit
+import RxSwift
 
 class CitySearchViewController: UIViewController {
-
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .textColor()
-        label.text = "Enter city, postcode or airoport location".uppercased()
+        label.text = "Enter city, postcode or airoport location"
         label.font = UIFont.appFontRegular(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,6 +22,7 @@ class CitySearchViewController: UIViewController {
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        searchBar.returnKeyType = .search
         searchBar.isTranslucent = true
         searchBar.placeholder = "Search"
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -39,13 +40,17 @@ class CitySearchViewController: UIViewController {
         return button
     }()
     
+    var viewModel: CityViewModel?
+    let disposeBag = DisposeBag()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.createBackground()
+        searchBar.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.createBackground()
     }
     
     override func viewDidLayoutSubviews() {
@@ -87,7 +92,15 @@ class CitySearchViewController: UIViewController {
 extension CitySearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        //create request and save to core data
-        self.dismiss(animated: true)
+        guard let text = searchBar.text, text.count > 0 else { return }
+        ActivityIndicator.show()
+        _ = viewModel?.isfinished.subscribe({ isFinished in 
+            self.dismiss(animated: true)
+        }).disposed(by: disposeBag)
+        viewModel?.fetchWeather(for: text)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
     }
 }
