@@ -1,5 +1,5 @@
 //
-//  NSManagedObject+Extension.swift
+//  ViewModelType.swift
 //  Weather
 //
 //  Created by Afnan MacBook Pro on 17/03/2022.
