@@ -10,7 +10,7 @@ import CoreData
 
 open class PersistentContainer: NSPersistentContainer {
     
-    public static let shared = PersistentContainer(name: "InstabugNetworkCoreData")
+    public static let shared = PersistentContainer(name: "Weather")
     //serial queue
     private let backgroundQueue = DispatchQueue(label: "PersistentContainerBackground", qos: .background)
     
@@ -23,11 +23,9 @@ open class PersistentContainer: NSPersistentContainer {
     }
     
     public func loadPersistentStores() {
-        print("loadPersistentStores first", Thread.current)
         backgroundQueue.async { [weak self] in
             guard let self = self else {return}
             self.loadPersistentStores(completionHandler: { (storeDescription, error) in
-                print("loadPersistentStores callback", Thread.current)
                 if let error = error as NSError? {
                      fatalError("Unresolved error \(error), \(error.userInfo)")
                 }
