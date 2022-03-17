@@ -14,6 +14,11 @@
 		44D3FC5827E285B700FBD92E /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D3FC5627E285B700FBD92E /* SFProText-Regular.ttf */; };
 		44D3FC5B27E2872800FBD92E /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC5A27E2872800FBD92E /* UIColor+Extension.swift */; };
 		44D3FC6527E29B7200FBD92E /* ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC6427E29B7200FBD92E /* ActivityIndicator.m */; };
+		44D3FC6727E29C2200FBD92E /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC6627E29C2200FBD92E /* UIView+Extension.swift */; };
+		44D3FC6C27E2D08C00FBD92E /* Request.m in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC6B27E2D08C00FBD92E /* Request.m */; };
+		44D3FC6E27E2D11F00FBD92E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC6D27E2D11F00FBD92E /* GradientView.swift */; };
+		44D3FC7227E2D15C00FBD92E /* ShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC7127E2D15C00FBD92E /* ShadowButton.swift */; };
+		44D3FC7427E2D18200FBD92E /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D3FC7327E2D18200FBD92E /* UITableViewCell+Extension.swift */; };
 		5F3D6BB12899C009111521CE /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC0930639E26B805375235E3 /* Pods_Weather.framework */; };
 		A05C448027E2615400D437FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C447F27E2615400D437FA /* AppDelegate.swift */; };
 		A05C448227E2615400D437FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C448127E2615400D437FA /* SceneDelegate.swift */; };
@@ -59,6 +64,11 @@
 		44D3FC5D27E289F900FBD92E /* Weather-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Weather-Bridging-Header.h"; sourceTree = "<group>"; };
 		44D3FC6327E29B7200FBD92E /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
 		44D3FC6427E29B7200FBD92E /* ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicator.m; sourceTree = "<group>"; };
+		44D3FC6627E29C2200FBD92E /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		44D3FC6B27E2D08C00FBD92E /* Request.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Request.m; sourceTree = "<group>"; };
+		44D3FC6D27E2D11F00FBD92E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		44D3FC7127E2D15C00FBD92E /* ShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowButton.swift; sourceTree = "<group>"; };
+		44D3FC7327E2D18200FBD92E /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		5F5C71DD3F51E2A985D06EB7 /* Pods-Weather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.release.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.release.xcconfig"; sourceTree = "<group>"; };
 		A05C447C27E2615400D437FA /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05C447F27E2615400D437FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -160,6 +170,7 @@
 			children = (
 				44D3FC6227E29B7200FBD92E /* ActivityIndicator */,
 				44D3FC5927E2871400FBD92E /* Extensions */,
+				44D3FC6F27E2D13B00FBD92E /* CustomViews */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -178,6 +189,8 @@
 			children = (
 				44D3FC5227E282A700FBD92E /* UIFont+Extension.swift */,
 				44D3FC5A27E2872800FBD92E /* UIColor+Extension.swift */,
+				44D3FC6627E29C2200FBD92E /* UIView+Extension.swift */,
+				44D3FC7327E2D18200FBD92E /* UITableViewCell+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -189,6 +202,23 @@
 				44D3FC6427E29B7200FBD92E /* ActivityIndicator.m */,
 			);
 			path = ActivityIndicator;
+			sourceTree = "<group>";
+		};
+		44D3FC6827E2CD9A00FBD92E /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				44D3FC6B27E2D08C00FBD92E /* Request.m */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		44D3FC6F27E2D13B00FBD92E /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				44D3FC6D27E2D11F00FBD92E /* GradientView.swift */,
+				44D3FC7127E2D15C00FBD92E /* ShadowButton.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		A05C447327E2615400D437FA = {
@@ -220,6 +250,7 @@
 				441D16D927E2750F0085E5A1 /* Resources */,
 				441D16D827E274E70085E5A1 /* SupportingFiles */,
 				44D3FC4F27E281E400FBD92E /* Helpers */,
+				44D3FC6827E2CD9A00FBD92E /* Network */,
 				441D16DB27E275610085E5A1 /* CoreData */,
 			);
 			path = Weather;
@@ -426,9 +457,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				44D3FC6527E29B7200FBD92E /* ActivityIndicator.m in Sources */,
+				44D3FC6C27E2D08C00FBD92E /* Request.m in Sources */,
+				44D3FC6E27E2D11F00FBD92E /* GradientView.swift in Sources */,
+				44D3FC7427E2D18200FBD92E /* UITableViewCell+Extension.swift in Sources */,
 				44D3FC5327E282A700FBD92E /* UIFont+Extension.swift in Sources */,
 				A05C448A27E2615400D437FA /* Weather.xcdatamodeld in Sources */,
+				44D3FC6727E29C2200FBD92E /* UIView+Extension.swift in Sources */,
 				A05C448027E2615400D437FA /* AppDelegate.swift in Sources */,
+				44D3FC7227E2D15C00FBD92E /* ShadowButton.swift in Sources */,
 				44D3FC5B27E2872800FBD92E /* UIColor+Extension.swift in Sources */,
 				44D3FC4E27E2818300FBD92E /* CityTableViewCell.swift in Sources */,
 				A05C448227E2615400D437FA /* SceneDelegate.swift in Sources */,

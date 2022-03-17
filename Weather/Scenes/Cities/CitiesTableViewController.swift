@@ -5,85 +5,129 @@
 //  Created by Afnan MacBook Pro on 16/03/2022.
 //
 
+import SnapKit
 import UIKit
 
-class CitiesTableViewController: UITableViewController {
-
+class CitiesTableViewController: UIViewController {
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .textColor()
+        label.text = "Cities".uppercased()
+        label.font = UIFont.appFontBold(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let addCityButton: UIButton = {
+        let button = ShadowButton()
+        button.shadowRadius = 24
+        button.shadowOffset = CGSize(width: 5, height: 0)
+        button.customShadowColor = .blackColor()
+        button.shadowOpacity = 0.2
+        button.layer.cornerRadius = 24
+        button.backgroundColor = .accentColor()
+        button.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        button.contentHorizontalAlignment = .center
+        button.titleLabel?.font = UIFont.appFontRegular(ofSize: 22)
+        button.setTitle("+", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(addCity(_:)), for: .touchUpInside)
+        return button
+    }()
+    
+    let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "Background")
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .singleLine
+        tableView.contentInsetAdjustmentBehavior = .never
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        tableView.register(CityTableViewCell.self, forCellReuseIdentifier: CityTableViewCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let gradientLayer = CAGradientLayer()
+        let colorTop: UIColor = .accentColor()
+        let colorBottom: UIColor = .accentColor()
+        gradientLayer.colors = [colorTop, colorBottom]
+        gradientLayer.locations = [0.5, 1.0]
+        gradientLayer.frame = self.view.bounds
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        view.gradientBackgroundColor()
+        layout()
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+    
+    func layout() {
+        view.addSubview(titleLabel)
+        view.addSubview(addCityButton)
+        view.addSubview(tableView)
+        view.addSubview(backgroundImageView)
+        titleLabel.snp.makeConstraints() {
+            make in
+            make.left.right.equalTo(view)
+            make.centerY.equalTo(addCityButton.snp.centerY)
+        }
+        addCityButton.snp.makeConstraints() {
+            make in
+            make.height.equalTo(view.snp.height).multipliedBy(0.07)
+            make.width.equalTo(view.snp.height).multipliedBy(0.09)
+            make.right.equalTo(view.snp.right)
+            make.top.equalTo(view.safeAreaInsets.top).offset(41)
+            make.bottom.equalTo(tableView.snp.top).offset(-38)
+        }
+        tableView.snp.makeConstraints {
+            make in
+            make.left.right.equalTo(view)
+            make.bottom.equalTo(view.snp.bottom)
+        }
+        backgroundImageView.snp.makeConstraints() {
+            make in
+            make.height.equalTo(view.snp.height).multipliedBy(0.3)
+            make.bottom.equalTo(view.snp.bottom)
+            make.left.equalTo(view.snp.left)
+            make.right.equalTo(view.snp.right)
+        }
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc func addCity(_ sender: UIButton) {
+        
+    }
+}
+extension CitiesTableViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CityTableViewCell.identifier, for: indexPath)
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        view.bounds.height * 0.07
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
