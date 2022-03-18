@@ -14,7 +14,7 @@ struct CityWeather: Codable {
     let cod: Int?
     let coord: Coord?
     let dt: Int?
-    let id: Int?
+    let id: Int64?
     let main: Main?
     let name: String?
     let sys: Sy?
@@ -51,7 +51,7 @@ struct Sy: Codable {
 struct Main: Codable {
 
     let feelsLike: Float?
-    let humidity: Int?
+    let humidity: Int64?
     let pressure: Int?
     let temp: Float?
     let tempMax: Float?

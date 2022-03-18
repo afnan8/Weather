@@ -6,3 +6,19 @@
 //
 
 import Foundation
+
+class CitiesConfigurator {
+    
+    static func configure() -> CitiesTableViewController {
+        let viewController = CitiesTableViewController()
+        viewController.viewModel = CitiesViewModel()
+        return viewController
+    }
+    
+    static func configure(delegate: CitySearch) -> CitySearchViewController {
+        let viewController = CitySearchViewController()
+        let network = WeatherNetwork()
+        viewController.viewModel = CityViewModel(network: network, delegate: delegate)
+        return viewController
+    }
+}

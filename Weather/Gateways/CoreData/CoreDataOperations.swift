@@ -17,7 +17,7 @@ open class CityWeatherOperations {
     
     func save(cityWeather: CityWeather) {
         let context = PersistentContainer.shared.newBackgroundContext()
-        context.perform { [weak self] in
+        context.performAndWait { [weak self] in
             guard let self = self else {return}
             let weatherInfoEntity = self.createWeatherInfoEntity(from: cityWeather, context: context)
             if let id = cityWeather.id, let city = self.getCity(with: id, context: context) {
@@ -75,13 +75,13 @@ open class CityWeatherOperations {
         let fetchRequest = WeatherInfo.fetchRequest
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.local
-
+        
         let dateFrom = calendar.startOfDay(for: Date())
         let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)
-
+        
         let fromPredicate = NSPredicate(format: "date >= %@", dateFrom as NSDate)
         let toPredicate = NSPredicate(format: "date < %@", dateTo! as NSDate)
-
+        
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
         do {
             let objects = try context.fetch(fetchRequest)
@@ -92,9 +92,16 @@ open class CityWeatherOperations {
         return nil
     }
     
+    func deleteCity(with id: Int64) {
+        let context = PersistentContainer.shared.newBackgroundContext()
+        guard let city = self.getCity(with: id, context: context) else {return}
+        context.delete(city)
+        save(context: context)
+    }
+    
     func listAllCities() -> [City]? {
         do {
-            let context = PersistentContainer.shared.newBackgroundContext()
+            let context = PersistentContainer.shared.viewContext
             let fetchRequest = City.fetchRequest
             let cities = try context.fetch(fetchRequest)
             return cities

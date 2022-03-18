@@ -14,25 +14,39 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
   - SnapKit (5.0.1)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
+  - RxCocoa (= 6.5.0)
+  - RxSwift (= 6.5.0)
   - SnapKit (~> 5.0.0)
   - SVProgressHUD
 
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SnapKit
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 790aa0e14bb84c94f9739dbe12f3de4674c7e301
+PODFILE CHECKSUM: 59d8a4dbf581cb122c95855b3d46a736cd8ffd2c
 
 COCOAPODS: 1.10.1

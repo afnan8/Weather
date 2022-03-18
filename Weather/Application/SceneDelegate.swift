@@ -19,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.frame = UIScreen.main.bounds
-        window?.rootViewController = CitiesTableViewController()
+        let viewController: CitiesTableViewController = CitiesConfigurator.configure()
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         (UIApplication.shared.delegate as? AppDelegate)?.window = window
     }

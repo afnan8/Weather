@@ -19,7 +19,7 @@ class CityTableViewCell: UITableViewCell {
         self.textLabel?.textColor = .textColor()
     }
     
-    func setCityName(with name: String) {
+    func setCityName(with name: String?) {
         textLabel?.text = name
     }
     

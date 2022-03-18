@@ -9,23 +9,21 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+protocol CitySearch: AnyObject {
+    func isAdded()
+}
+
 class CityViewModel {
-    
-//    struct Input { }
-//
-//
-//    struct Output {
-//    }
-//
-//    let input: Input = Input()
-//
+
     let isfinished = PublishSubject<Bool>()
 
     private let disposeBag = DisposeBag()
     private let network: WeatherNetwork
+    private let delegate: CitySearch?
     
-    init(network: WeatherNetwork) {
+    init(network: WeatherNetwork, delegate: CitySearch) {
         self.network = network
+        self.delegate = delegate
     }
 
     func fetchWeather(for cityName: String) {
@@ -35,6 +33,7 @@ class CityViewModel {
             case .success(let cityWeather):
                 CityWeatherOperations.shared.save(cityWeather: cityWeather)
                 self.isfinished.on(.next(true))
+                self.delegate?.isAdded()
             case .failure(let error):
                 print(error)
             }

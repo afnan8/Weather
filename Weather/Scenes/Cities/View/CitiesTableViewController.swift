@@ -6,7 +6,8 @@
 //
 
 import SnapKit
-import UIKit
+import RxSwift
+import RxCocoa
 
 class CitiesTableViewController: UIViewController {
     
@@ -37,14 +38,6 @@ class CitiesTableViewController: UIViewController {
         return button
     }()
     
-    let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "Background")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
@@ -54,27 +47,27 @@ class CitiesTableViewController: UIViewController {
         return tableView
     }()
     
+    var viewModel: CitiesViewModel?
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(CityTableViewCell.self, forCellReuseIdentifier: CityTableViewCell.identifier)
-        tableView.delegate = self
-        tableView.dataSource = self
+        tableView.rowHeight = view.bounds.height * 0.07
+        bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel?.loadCities()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let gradientLayer = CAGradientLayer()
-        let colorTop: UIColor = .accentColor()
-        let colorBottom: UIColor = .accentColor()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.5, 1.0]
-        gradientLayer.frame = self.view.bounds
-        self.view.layer.insertSublayer(gradientLayer, at: 0)
+        view.createBackground()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        view.gradientBackgroundColor()
         layout()
     }
     
@@ -82,7 +75,6 @@ class CitiesTableViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(addCityButton)
         view.addSubview(tableView)
-        view.addSubview(backgroundImageView)
         titleLabel.snp.makeConstraints() {
             make in
             make.left.right.equalTo(view)
@@ -101,33 +93,29 @@ class CitiesTableViewController: UIViewController {
             make.left.right.equalTo(view)
             make.bottom.equalTo(view.snp.bottom)
         }
-        backgroundImageView.snp.makeConstraints() {
-            make in
-            make.height.equalTo(view.snp.height).multipliedBy(0.3)
-            make.bottom.equalTo(view.snp.bottom)
-            make.left.equalTo(view.snp.left)
-            make.right.equalTo(view.snp.right)
-        }
         self.view.layoutIfNeeded()
     }
     
-    @objc func addCity(_ sender: UIButton) {
+    func bindViewModel() {
+        self.viewModel?.citiesItems.asObservable().bind(to: self.tableView.rx.items(cellIdentifier: CityTableViewCell.identifier, cellType: CityTableViewCell.self)) { index, name, cell in
+            cell.setCityName(with: name)
+        }.disposed(by: self.disposeBag)
         
+        tableView.rx.itemDeleted.subscribe (onNext: { [weak self] item in
+            guard let self = self else {return}
+            self.viewModel?.deleteCity(at: item.row)
+            self.tableView.reloadData()
+        }).disposed(by: disposeBag)
+        tableView.tableFooterView = UIView()
+
+    }
+    
+    @objc func addCity(_ sender: UIButton) {
+        navigate(to: CityRoute.addCity(delegate: self))
     }
 }
-extension CitiesTableViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+extension CitiesTableViewController: CitySearch {
+    func isAdded() {
+        viewModel?.loadCities()
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CityTableViewCell.identifier, for: indexPath)
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        view.bounds.height * 0.07
-    }
-    
 }
