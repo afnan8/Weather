@@ -31,11 +31,7 @@ open class CityWeatherOperations {
     }
     
     func createWeatherInfoEntity(from cityWeather: CityWeather, context: NSManagedObjectContext) -> WeatherInfo {
-        /*
-         * update "lastWeatherInfo" if weather added for the same city again in same day
-         */
-        let lastWeatherInfo = getWeatherInfo(with: Date(), context: context)
-        let weatherInfoEntity = lastWeatherInfo ?? WeatherInfo(context: context)
+        let weatherInfoEntity = WeatherInfo(context: context)
         weatherInfoEntity.descriptionField = cityWeather.weather?.first?.descriptionField
         if let humidity = cityWeather.main?.humidity {
             weatherInfoEntity.humidity = humidity
@@ -48,7 +44,6 @@ open class CityWeatherOperations {
         }
         weatherInfoEntity.date = Date()
         return weatherInfoEntity
-        
     }
     
     func addNewCity(cityWeather: CityWeather, with weatherInfo: WeatherInfo, context: NSManagedObjectContext) {
@@ -83,27 +78,27 @@ open class CityWeatherOperations {
             return Disposables.create()
         }
     }
-    
-    func getWeatherInfo(with date: Date, context: NSManagedObjectContext) -> WeatherInfo? {
-        let fetchRequest = WeatherInfo.fetchRequest
-        var calendar = Calendar.current
-        calendar.timeZone = NSTimeZone.local
-        
-        let dateFrom = calendar.startOfDay(for: Date())
-        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)
-        
-        let fromPredicate = NSPredicate(format: "date >= %@", dateFrom as NSDate)
-        let toPredicate = NSPredicate(format: "date < %@", dateTo! as NSDate)
-        
-        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
-        do {
-            let objects = try context.fetch(fetchRequest)
-            return objects.first
-        } catch {
-            print("Error: Failed to list cities: \(error)")
-        }
-        return nil
-    }
+//
+//    func getWeatherInfo(with date: Date, context: NSManagedObjectContext) -> WeatherInfo? {
+//        let fetchRequest = WeatherInfo.fetchRequest
+//        var calendar = Calendar.current
+//        calendar.timeZone = NSTimeZone.local
+//
+//        let dateFrom = calendar.startOfDay(for: Date())
+//        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom)
+//
+//        let fromPredicate = NSPredicate(format: "date >= %@", dateFrom as NSDate)
+//        let toPredicate = NSPredicate(format: "date < %@", dateTo! as NSDate)
+//
+//        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
+//        do {
+//            let objects = try context.fetch(fetchRequest)
+//            return objects.first
+//        } catch {
+//            print("Error: Failed to list cities: \(error)")
+//        }
+//        return nil
+//    }
     
     func deleteCity(with id: Int64) {
         let context = PersistentContainer.shared.newBackgroundContext()
