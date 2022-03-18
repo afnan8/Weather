@@ -21,4 +21,10 @@ class CitiesConfigurator {
         viewController.viewModel = CityViewModel(network: network, delegate: delegate)
         return viewController
     }
+    
+    static func configure(with cityId: Int64) -> CityHistoryViewController {
+        let viewController = CityHistoryViewController()
+        viewController.viewModel = CityHistoryViewModel(id: cityId)
+        return viewController
+    }
 }

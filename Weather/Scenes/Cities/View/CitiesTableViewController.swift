@@ -101,13 +101,21 @@ class CitiesTableViewController: UIViewController {
             cell.setCityName(with: name)
         }.disposed(by: self.disposeBag)
         
-        tableView.rx.itemDeleted.subscribe (onNext: { [weak self] item in
+        tableView.rx.itemDeleted.subscribe (onNext: { [weak self] indexPath in
             guard let self = self else {return}
-            self.viewModel?.deleteCity(at: item.row)
+            self.viewModel?.deleteCity(at: indexPath.row)
             self.tableView.reloadData()
         }).disposed(by: disposeBag)
-        tableView.tableFooterView = UIView()
-
+        
+        tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
+            guard let self = self else {return}
+            guard let id = self.viewModel?.getCityId(at: indexPath.row) else {return}
+            self.openCityHistory(for: id)
+        }).disposed(by: disposeBag)
+    }
+    
+    func openCityHistory(for cityId: Int64) {
+        navigate(to: CityRoute.showCityHistory(id: cityId))
     }
     
     @objc func addCity(_ sender: UIButton) {

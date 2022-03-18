@@ -34,4 +34,9 @@ class CitiesViewModel {
         citiesItems.accept(cities)
     }
     
+    func getCityId(at index: Int) -> Int64? {
+        guard let ids = self.citiesIds, ids.count > 0 else { return nil}
+        return ids[index]
+    }
+    
 }
