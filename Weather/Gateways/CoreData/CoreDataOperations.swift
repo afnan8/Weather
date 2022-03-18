@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import RxSwift
 
 open class CityWeatherOperations {
     
@@ -59,7 +60,7 @@ open class CityWeatherOperations {
         cityEntity.weatherInfo?.insert(weatherInfo)
     }
     
-    func getCity(with id: Int64, context: NSManagedObjectContext) -> City? {
+    func getCity(with id: Int64, context: NSManagedObjectContext = PersistentContainer.shared.newBackgroundContext()) -> City? {
         let fetchRequest = City.fetchRequest
         fetchRequest.predicate =  NSPredicate(format: "id == \(id)")
         do {
@@ -69,6 +70,18 @@ open class CityWeatherOperations {
             print("Error: Failed to list cities: \(error)")
         }
         return nil
+    }
+    
+    func getCity(with id: Int64) -> Observable<Result<City, Error>> {
+        return Observable.create { [weak self] observer in
+            guard let self = self else { return Disposables.create() }
+            guard let city = self.getCity(with: id) else {
+                observer.onError(APIError.noData)
+                return Disposables.create()
+            }
+            observer.onNext(.success(city))
+            return Disposables.create()
+        }
     }
     
     func getWeatherInfo(with date: Date, context: NSManagedObjectContext) -> WeatherInfo? {
