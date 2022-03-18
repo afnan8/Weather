@@ -13,4 +13,5 @@ final class WeatherInfo: NSManagedObject, Identifiable {
     @NSManaged public var humidity: Int64
     @NSManaged public var speed: Float
     @NSManaged public var temp: Float
+    @NSManaged public var date: Date
 }

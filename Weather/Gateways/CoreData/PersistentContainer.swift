@@ -23,7 +23,7 @@ open class PersistentContainer: NSPersistentContainer {
     }
     
     public func loadPersistentStores() {
-        backgroundQueue.async { [weak self] in
+        backgroundQueue.sync { [weak self] in
             guard let self = self else {return}
             self.loadPersistentStores(completionHandler: { (storeDescription, error) in
                 if let error = error as NSError? {

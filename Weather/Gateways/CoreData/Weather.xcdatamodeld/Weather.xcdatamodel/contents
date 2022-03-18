@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G415" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="City" representedClassName=".City" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="weatherInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="weatherInfo" inverseEntity="City"/>
+        <relationship name="weatherInfo" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WeatherInfo" inverseName="weatherInfo" inverseEntity="WeatherInfo"/>
     </entity>
     <entity name="WeatherInfo" representedClassName=".WeatherInfo" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="descriptionField" optional="YES" attributeType="String"/>
         <attribute name="humidity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="speed" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="temp" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="weatherInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="weatherInfo" inverseEntity="City"/>
     </entity>
     <elements>
-        <element name="City" positionX="-63" positionY="-18" width="128" height="73"/>
-        <element name="WeatherInfo" positionX="-220.19140625" positionY="-51.41889953613281" width="128" height="103"/>
+        <element name="City" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="WeatherInfo" positionX="-220.19140625" positionY="-51.41889953613281" width="128" height="133"/>
     </elements>
 </model>
