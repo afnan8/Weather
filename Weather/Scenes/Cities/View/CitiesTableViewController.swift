@@ -55,12 +55,9 @@ class CitiesTableViewController: UIViewController {
         tableView.register(CityTableViewCell.self, forCellReuseIdentifier: CityTableViewCell.identifier)
         tableView.rowHeight = view.bounds.height * 0.07
         bindViewModel()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         viewModel?.loadCities()
     }
-    
+   
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.createBackground()

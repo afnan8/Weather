@@ -24,7 +24,8 @@ class CitiesConfigurator {
     
     static func configure(with cityId: Int64) -> CityHistoryViewController {
         let viewController = CityHistoryViewController()
-        viewController.viewModel = CityHistoryViewModel(id: cityId)
+        viewController.presenter = CityHistoryPresenter(view: viewController, id: cityId)
+//        viewController.viewModel = CityHistoryViewModel(id: cityId)
         return viewController
     }
 }
